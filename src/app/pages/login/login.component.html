@@ -1,27 +1,21 @@
-
-<ion-toolbar color="dark">
-  <ion-buttons slot="start">
-    <ion-menu-button></ion-menu-button>
-  </ion-buttons>
-</ion-toolbar>
-
 <ion-content color="dark" class="ion-padding">
- <div class="ion-justify-content-center">
-  <ion-text color="primary" class="ion-text-center ion-margin-top">
-    <h2>Iniciar sesión</h2>
-  </ion-text>
- </div>
+  <div class="ion-justify-content-center">
+    <ion-text color="primary" class="ion-text-center ion-margin-top">
+      <h2>Iniciar sesión</h2>
+    </ion-text>
+  </div>
   <form action="" [formGroup]="formLogin" (ngSubmit)="login()">
       <div class="ion-padding">
-        <ion-input formControlName="email" label="email" label-placement="floating" fill="outline" placeholder="email"></ion-input>
+        <ion-input formControlName="email" fill="outline" placeholder="email"></ion-input>
       </div>
         <div class="ion-padding">
-          <ion-input type="password" formControlName="password" label="password" label-placement="floating" fill="outline" placeholder="password"></ion-input>
+          <ion-input type="password" formControlName="password"  fill="outline" placeholder="password"></ion-input>
         </div>
     <ion-row class="ion-padding ion-justify-content-center">
-      <ion-button type="submit" fill="solid" slug="--border-radius">
+      <ion-button id="open-loading" type="submit" fill="solid" slug="--border-radius">
         Iniciar sesión
       </ion-button>
+      <ion-loading *ngIf="loading" trigger="open-loading" message="Login..." ></ion-loading>
     </ion-row>
   </form>
 </ion-content>
