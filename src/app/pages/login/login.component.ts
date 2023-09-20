@@ -27,11 +27,13 @@ export class LoginComponent {
       const { email, password } = this.formLogin.value;
       this.formLogin.reset();
       this.loading = true;
+
       this._authService.login(email, password).subscribe((response:any) => {
         if(response.status === true){
           localStorage.setItem('token', response.token);
           this.loading = false;
           this._authService.setCurrentUser(response.data);
+          //adding toast notification
           this.toastr.success(JSON.stringify(response.message), JSON.stringify(response.code), {
             timeOut: 2000,
             progressBar:true,
@@ -47,6 +49,7 @@ export class LoginComponent {
         });
         this.router.navigate(['/login']);
       });
+
     } else {
       this.formLogin.markAllAsTouched();
     }
