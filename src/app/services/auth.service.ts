@@ -24,6 +24,18 @@ export class AuthService {
     return this.http.post('http://127.0.0.1:8000/api/login', body, { headers });
   }
 
+  register(name:any, email:any, password:any) {
+    const headers = new HttpHeaders();
+    const body: FormData = new FormData;
+
+    headers.append('Content-Type','application/json');
+    body.append('name', name);
+    body.append('email', email);
+    body.append('password', password);
+
+    return this.http.post('http://127.0.0.1:8000/api/register', body, { headers });
+  }
+
   logOut(token:string) {
     let headers = new HttpHeaders()
           .set('Authorization', 'Bearer ' + token)

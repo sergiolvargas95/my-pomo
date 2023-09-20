@@ -41,4 +41,8 @@ export class LoginComponent {
       this.formLogin.markAllAsTouched();
     }
   }
+
+  OpenRegister() {
+    this.router.navigate(['/register']);
+  }
 }
