@@ -6,10 +6,26 @@
   </div>
   <form action="" [formGroup]="formLogin" (ngSubmit)="login()">
       <div class="ion-padding">
-        <ion-input formControlName="email" fill="outline" placeholder="email"></ion-input>
+        <ion-input formControlName="email" fill="outline" placeholder="email" [ngClass]="{'is-invalid': submitted && form.email.errors }" required></ion-input>
+        <div *ngIf="submitted && form.email.errors" class="invalid-feedback">
+          <div class="" *ngIf="form.email.errors.required">
+            Email is required
+          </div>
+          <div class="" *ngIf="form.email.errors.email">
+            Please enter a valid email
+          </div>
+        </div>
       </div>
         <div class="ion-padding">
-          <ion-input type="password" formControlName="password"  fill="outline" placeholder="password"></ion-input>
+          <ion-input type="password" formControlName="password"  fill="outline" placeholder="password" [ngClass]="{'is-invalid': submitted && form.email.errors }" required></ion-input>
+          <div *ngIf="submitted && form.password.errors" class="invalid-feedback">
+            <div class="" *ngIf="form.password.errors.required">
+              Password is required
+            </div>
+            <div class="" *ngIf="form.password.errors.minlength">
+              Password must be at least 9 characters
+            </div>
+          </div>
         </div>
     <ion-row class="ion-padding ion-justify-content-center">
       <ion-button id="open-loading" type="submit" fill="solid" slug="--border-radius">

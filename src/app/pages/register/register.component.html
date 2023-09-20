@@ -4,15 +4,36 @@
       <h2>Registrarse</h2>
     </ion-text>
   </div>
-  <form action="" [formGroup]="formRegister" (ngSubmit)="register()">
-    <div class="ion-padding">
-      <ion-input formControlName="name" fill="outline" placeholder="name"></ion-input>
-    </div>
-      <div class="ion-padding">
-        <ion-input formControlName="email" fill="outline" placeholder="email"></ion-input>
+  <form class ="form-register" action="" [formGroup]="formRegister" (ngSubmit)="register()">
+    <div class="input-padding">
+      <ion-input formControlName="name" fill="outline" placeholder="name" [ngClass]="{'is-invalid': submitted && form.email.errors }" required></ion-input>
+      <div *ngIf="submitted && form.name.errors" class="invalid-feedback">
+        <div class="" *ngIf="form.name.errors.required">
+          Name is required
+        </div>
       </div>
-      <div class="ion-padding">
-        <ion-input type="password" formControlName="password"  fill="outline" placeholder="password"></ion-input>
+    </div>
+      <div class="input-padding">
+        <ion-input formControlName="email" fill="outline" placeholder="email" [ngClass]="{'is-invalid': submitted && form.email.errors }" required></ion-input>
+        <div *ngIf="submitted && form.email.errors" class="invalid-feedback">
+          <div class="" *ngIf="form.email.errors.required">
+            Email is required
+          </div>
+          <div class="" *ngIf="form.email.errors.email">
+            Please enter a valid email
+          </div>
+        </div>
+      </div>
+      <div class="input-padding">
+        <ion-input type="password" formControlName="password"  fill="outline" placeholder="password" [ngClass]="{'is-invalid': submitted && form.email.errors }" required></ion-input>
+        <div *ngIf="submitted && form.password.errors" class="invalid-feedback">
+          <div class="" *ngIf="form.password.errors.required">
+            Password is required
+          </div>
+          <div class="" *ngIf="form.password.errors.minlength">
+            Password must be at least 9 characters
+          </div>
+        </div>
       </div>
     <ion-row class="ion-padding ion-justify-content-center">
       <ion-button id="open-loading" type="submit" fill="solid" slug="--border-radius">

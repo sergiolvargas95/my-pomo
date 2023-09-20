@@ -6,20 +6,22 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  //styleUrls: ['./register.component.scss']
+  styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
   public loading = false;
+  public submitted = false;
 
   formRegister = this.formBuilder.group({
     name: ['', [ Validators.required ]],
     email:['',[Validators.email, Validators.required]],
-    password: ['', [Validators.required ]]
+    password: ['', [Validators.required, Validators.minLength(9) ]]
   });
 
   constructor( private formBuilder: FormBuilder, private _authService: AuthService, private router:Router, private toastr: ToastrService ) {}
 
   register() {
+    this.submitted = true;
     if(this.formRegister.valid) {
       const { name, email, password } = this.formRegister.value;
       this.formRegister.reset();
@@ -48,5 +50,9 @@ export class RegisterComponent {
 
   OpenLogin() {
     this.router.navigate(['/login'])
+  }
+
+  get form() {
+    return this.formRegister.controls;
   }
 }

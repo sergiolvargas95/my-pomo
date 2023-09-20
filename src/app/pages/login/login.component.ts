@@ -12,10 +12,11 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class LoginComponent {
   public loading = false;
+  public submitted = false;
 
   formLogin = this.formBuilder.group({
     email: ['', [ Validators.email, Validators.required ]],
-    password: ['', [ Validators.required ]]
+    password: ['', [ Validators.required, Validators.minLength(9) ]]
   });
 
   constructor( private formBuilder: FormBuilder, private _authService: AuthService, private router:Router, private toastr: ToastrService ) { }
@@ -23,6 +24,7 @@ export class LoginComponent {
   ngOnInit() {}
 
   login() {
+    this.submitted = true;
     if(this.formLogin.valid) {
       const { email, password } = this.formLogin.value;
       this.formLogin.reset();
@@ -57,5 +59,9 @@ export class LoginComponent {
 
   OpenRegister() {
     this.router.navigate(['/register']);
+  }
+
+  get form() {
+    return this.formLogin.controls;
   }
 }
