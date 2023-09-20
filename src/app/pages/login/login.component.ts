@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class LoginComponent {
     password: ['', [ Validators.required ]]
   });
 
-  constructor( private formBuilder: FormBuilder, private _authService: AuthService, private router:Router ) { }
+  constructor( private formBuilder: FormBuilder, private _authService: AuthService, private router:Router, private toastr: ToastrService ) { }
 
   ngOnInit() {}
 
@@ -31,11 +32,20 @@ export class LoginComponent {
           localStorage.setItem('token', response.token);
           this.loading = false;
           this._authService.setCurrentUser(response.data);
+          this.toastr.success(JSON.stringify(response.message), JSON.stringify(response.code), {
+            timeOut: 2000,
+            progressBar:true,
+          });
           this.router.navigate(['/dashboard']);
         }
       }, error => {
+        console.log(error);
         this.loading = false;
-          this.router.navigate(['/login']);
+        this.toastr.error(JSON.stringify(error.error.errors[0]), JSON.stringify(error.code), {
+          timeOut: 2000,
+          progressBar:true,
+        });
+        this.router.navigate(['/login']);
       });
     } else {
       this.formLogin.markAllAsTouched();
