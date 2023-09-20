@@ -24,16 +24,12 @@ export class RegisterComponent {
       const { name, email, password } = this.formRegister.value;
       this.formRegister.reset();
       this.loading = true;
-
       this._authService.register(name, email, password).subscribe((data:any) => {
         if(data.status === true) {
-
-          //adding toast notification
           this.toastr.success(JSON.stringify(data.message), JSON.stringify(data.code), {
             timeOut: 2000,
             progressBar:true,
           });
-
           this._authService.login(email, password).subscribe((response:any) => {
             if(response.status === true){
               localStorage.setItem('token', response.token);
